@@ -4,6 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start"
@@ -23,11 +24,14 @@
     "vinxi": "0.5.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.1",
     "@types/node": "^22.5.4",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.21",
     "eslint": "^9.18.0",
+    "husky": "^9.1.7",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
     "typescript": "^5.7.2",
