@@ -4,7 +4,6 @@ import { ConvexQueryClient } from '@convex-dev/react-query';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
-  Link,
   Outlet,
   ScrollRestoration,
   createRootRouteWithContext,
@@ -18,6 +17,7 @@ import * as React from 'react';
 import { getWebRequest } from 'vinxi/http';
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
 import { NotFound } from '~/components/NotFound';
+import { TopNavigator } from '~/features/navigator';
 import appCss from '~/styles/app.css?url';
 import { seo } from '~/utils/seo';
 
@@ -122,18 +122,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="flex gap-2 p-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>
-        </div>
-        <hr />
+        <TopNavigator />
         {children}
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />

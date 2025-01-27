@@ -13,6 +13,7 @@
     "@ark-ui/react": "^4.9.1",
     "@clerk/tanstack-start": "^0.4.0",
     "@convex-dev/react-query": "0.0.0-alpha.8",
+    "@editorjs/editorjs": "^2.30.7",
     "@suspensive/react": "^2.18.12",
     "@suspensive/react-query": "^2.18.12",
     "@tailwindcss/vite": "4.0.0",
