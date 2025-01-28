@@ -1,7 +1,11 @@
 import EditorJS from '@editorjs/editorjs';
 import { useEffect } from 'react';
 
-export default function EditorComponent() {
+interface EditorComponentProps {
+  className?: string;
+}
+
+export default function EditorComponent({ className }: EditorComponentProps) {
   useEffect(() => {
     const editor = new EditorJS({
       holder: 'editorjs',
@@ -17,5 +21,5 @@ export default function EditorComponent() {
     };
   }, []);
 
-  return <div id="editorjs" />;
+  return <div id="editorjs" className={className} />;
 }
