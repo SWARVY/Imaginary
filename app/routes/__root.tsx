@@ -17,9 +17,9 @@ import * as React from 'react';
 import { getWebRequest } from 'vinxi/http';
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
 import { NotFound } from '~/components/NotFound';
-import { TopNavigator } from '~/features/navigator';
+import { BottomNavigator, TopNavigator } from '~/features/navigator';
+import { seo } from '~/shared/lib/seo';
 import appCss from '~/styles/app.css?url';
-import { seo } from '~/utils/seo';
 
 const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
   const auth = await getAuth(getWebRequest(), {
@@ -122,8 +122,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <TopNavigator />
-        {children}
+        <div className="relative flex h-screen w-dvw justify-center">
+          <div className="w-full max-w-3xl">
+            <TopNavigator />
+            {children}
+          </div>
+          <BottomNavigator />
+        </div>
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />
