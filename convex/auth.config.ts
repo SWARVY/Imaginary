@@ -1,7 +1,7 @@
 export default {
   providers: [
     {
-      domain: process.env.CONVEX_API_URL!,
+      domain: 'https://graceful-narwhal-106.convex.cloud',
       applicationID: 'convex',
     },
   ],
