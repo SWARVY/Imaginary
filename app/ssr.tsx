@@ -8,9 +8,18 @@ import {
 
 import { createRouter } from './router';
 
-export default createClerkHandler(
-  createStartHandler({
-    createRouter,
-    getRouterManifest,
-  }),
-)(defaultStreamHandler);
+const handler = createStartHandler({
+  createRouter,
+  getRouterManifest,
+});
+
+const clerkHandler = createClerkHandler(handler);
+
+/*
+ * // You can also override Clerk options by passing an object as second argument
+ * const clerkHandler = createClerkHandler(handler, {
+ *   afterSignInUrl: '/dashboard',
+ * });
+ */
+
+export default clerkHandler(defaultStreamHandler);

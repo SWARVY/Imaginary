@@ -22,8 +22,7 @@ import { NotFound } from '~/shared/ui/not-found';
 import appCss from '~/styles/app.css?url';
 
 const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
-  const auth = await getAuth(getWebRequest());
-
+  const auth = await getAuth(getWebRequest()!);
   const token = await auth.getToken({ template: 'convex' });
 
   return {
@@ -116,13 +115,13 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html suppressHydrationWarning>
+    <html>
       <head>
         <Meta />
       </head>
       <body>
         <div className="relative flex h-screen w-dvw justify-center">
-          <div className="w-full max-w-3xl">
+          <div className="flex w-full max-w-3xl flex-col">
             <TopNavigator />
             {children}
           </div>
