@@ -9,10 +9,8 @@ export const Route = createFileRoute('/new-post/')({
 
 function RouteComponent() {
   return (
-    <div>
-      <Protect fallback={<NeedAuth />}>
-        <PostEditor />
-      </Protect>
-    </div>
+    <Protect fallback={<NeedAuth />}>
+      <PostEditor />
+    </Protect>
   );
 }
