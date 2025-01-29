@@ -10,10 +10,11 @@
     "start": "vinxi start"
   },
   "dependencies": {
-    "@clerk/tanstack-start": "^0.4.0",
+    "@clerk/tanstack-start": "^0.4.28",
     "@convex-dev/react-query": "0.0.0-alpha.8",
     "@editorjs/editorjs": "^2.30.7",
     "@hookform/resolvers": "^3.10.0",
+    "@lottiefiles/dotlottie-react": "^0.12.3",
     "@suspensive/react": "^2.18.12",
     "@suspensive/react-query": "^2.18.12",
     "@tailwindcss/vite": "4.0.0",
