@@ -4,7 +4,6 @@ import { ConvexQueryClient } from '@convex-dev/react-query';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
-  Link,
   Outlet,
   ScrollRestoration,
   createRootRouteWithContext,
@@ -16,15 +15,14 @@ import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import * as React from 'react';
 import { getWebRequest } from 'vinxi/http';
-import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
-import { NotFound } from '~/components/NotFound';
+import { BottomNavigator, TopNavigator } from '~/features/navigator';
+import { seo } from '~/shared/lib/seo';
+import { DefaultCatchBoundary } from '~/shared/ui/default-catch-boundary';
+import { NotFound } from '~/shared/ui/not-found';
 import appCss from '~/styles/app.css?url';
-import { seo } from '~/utils/seo';
 
 const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
-  const auth = await getAuth(getWebRequest(), {
-    secretKey: import.meta.env.CLERK_SECRET_KEY!,
-  });
+  const auth = await getAuth(getWebRequest()!);
   const token = await auth.getToken({ template: 'convex' });
 
   return {
@@ -122,19 +120,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="flex gap-2 p-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>
+        <div className="relative flex h-screen w-dvw justify-center">
+          <div className="flex w-full max-w-3xl flex-col">
+            <TopNavigator />
+            {children}
+          </div>
+          <BottomNavigator />
         </div>
-        <hr />
-        {children}
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />

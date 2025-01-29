@@ -1,14 +1,11 @@
-@import "tailwindcss";
-
-@theme {
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes:
+    light --default,
+    dark --prefersdark;
 }
 
 @layer base {
-  html,
-  body {
-    @apply text-gray-900 bg-gray-50 dark:bg-gray-950 dark:text-gray-200;
-  }
-
   .using-mouse * {
     outline: none !important;
   }

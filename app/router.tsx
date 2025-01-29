@@ -4,9 +4,9 @@ import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { routerWithQueryClient } from '@tanstack/react-router-with-query';
 import { ConvexReactClient } from 'convex/react';
 
-import { DefaultCatchBoundary } from './components/DefaultCatchBoundary';
-import { NotFound } from './components/NotFound';
 import { routeTree } from './routeTree.gen';
+import { DefaultCatchBoundary } from './shared/ui/default-catch-boundary';
+import { NotFound } from './shared/ui/not-found';
 
 // NOTE: Most of the integration code found here is experimental and will
 // definitely end up in a more streamlined API in the future. This is just
