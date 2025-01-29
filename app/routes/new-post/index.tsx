@@ -1,4 +1,6 @@
+import { Protect } from '@clerk/tanstack-start';
 import { createFileRoute } from '@tanstack/react-router';
+import NeedAuth from '~/shared/ui/need-auth';
 import { PostEditor } from '~/widget/post-editor';
 
 export const Route = createFileRoute('/new-post/')({
@@ -8,7 +10,9 @@ export const Route = createFileRoute('/new-post/')({
 function RouteComponent() {
   return (
     <div>
-      <PostEditor />
+      <Protect fallback={<NeedAuth />}>
+        <PostEditor />
+      </Protect>
     </div>
   );
 }

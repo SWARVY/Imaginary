@@ -15,16 +15,15 @@ import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import * as React from 'react';
 import { getWebRequest } from 'vinxi/http';
-import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary';
-import { NotFound } from '~/components/NotFound';
 import { BottomNavigator, TopNavigator } from '~/features/navigator';
 import { seo } from '~/shared/lib/seo';
+import { DefaultCatchBoundary } from '~/shared/ui/default-catch-boundary';
+import { NotFound } from '~/shared/ui/not-found';
 import appCss from '~/styles/app.css?url';
 
 const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
-  const auth = await getAuth(getWebRequest(), {
-    secretKey: import.meta.env.CLERK_SECRET_KEY!,
-  });
+  const auth = await getAuth(getWebRequest());
+
   const token = await auth.getToken({ template: 'convex' });
 
   return {
@@ -117,7 +116,7 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html suppressHydrationWarning>
       <head>
         <Meta />
       </head>
