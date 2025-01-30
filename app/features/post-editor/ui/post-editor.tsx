@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Doc } from 'convex/_generated/dataModel';
 import { PostSchema } from 'convex/schema';
+import { Suspense, lazy } from 'react';
 import {
   type FieldErrors,
   FormProvider,
@@ -9,12 +10,13 @@ import {
 } from 'react-hook-form';
 import { IoIosSave } from 'react-icons/io';
 import { TiLinkOutline } from 'react-icons/ti';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'sonner';
 import { useEditPost, useInsertPost } from '~/entities/post';
-import EditorComponent from '~/shared/ui/editor';
 import { useEditorStore } from '~/store/editor-store';
 
 import { CATEGORIES } from '../model';
+
+const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
 interface PostEditorProps {
   defaultValue?: Doc<'post'>;
@@ -75,22 +77,20 @@ export default function PostEditor({
           onSubmit={methods.handleSubmit(handleEditorSubmit, handleSubmitError)}
         >
           <Title />
-          <div className="rounded-md py-4 ring-black focus-within:ring-2">
-            <EditorComponent
-              className="w-full"
-              data={
-                defaultValue ? JSON.parse(defaultValue.contents) : undefined
-              }
-            />
+          <div className="rounded-md py-4 ring-black focus-within:ring-2 dark:ring-white">
+            <Suspense fallback="...loading">
+              <EditorComponent
+                className="w-full"
+                data={
+                  defaultValue ? JSON.parse(defaultValue.contents) : undefined
+                }
+              />
+            </Suspense>
           </div>
           <RelatedPosts />
           <SaveButtons />
         </form>
-        <div className="toast">
-          <div className="alert"></div>
-        </div>
       </FormProvider>
-      <ToastContainer />
     </>
   );
 }
@@ -142,7 +142,10 @@ function RelatedPosts() {
       <legend className="fieldset-legend">Related post</legend>
       {[...Array(4)].map((_, index) => (
         <label key={index} className="input validator w-full">
-          <TiLinkOutline size={16} className="opacity-50" fill="black" />
+          <TiLinkOutline
+            size={16}
+            className="fill-black opacity-50 dark:fill-gray-200"
+          />
           <input
             type="url"
             placeholder="https://"
