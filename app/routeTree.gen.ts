@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as NewPostIndexImport } from './routes/new-post/index'
+import { Route as PostsListTypeImport } from './routes/posts/list.$type'
+import { Route as PostsDetailPostIdImport } from './routes/posts/detail.$postId'
 
 // Create/Update Routes
 
@@ -25,6 +27,18 @@ const IndexRoute = IndexImport.update({
 const NewPostIndexRoute = NewPostIndexImport.update({
   id: '/new-post/',
   path: '/new-post/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsListTypeRoute = PostsListTypeImport.update({
+  id: '/posts/list/$type',
+  path: '/posts/list/$type',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsDetailPostIdRoute = PostsDetailPostIdImport.update({
+  id: '/posts/detail/$postId',
+  path: '/posts/detail/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +60,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewPostIndexImport
       parentRoute: typeof rootRoute
     }
+    '/posts/detail/$postId': {
+      id: '/posts/detail/$postId'
+      path: '/posts/detail/$postId'
+      fullPath: '/posts/detail/$postId'
+      preLoaderRoute: typeof PostsDetailPostIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/posts/list/$type': {
+      id: '/posts/list/$type'
+      path: '/posts/list/$type'
+      fullPath: '/posts/list/$type'
+      preLoaderRoute: typeof PostsListTypeImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +82,51 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/new-post': typeof NewPostIndexRoute
+  '/posts/detail/$postId': typeof PostsDetailPostIdRoute
+  '/posts/list/$type': typeof PostsListTypeRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/new-post': typeof NewPostIndexRoute
+  '/posts/detail/$postId': typeof PostsDetailPostIdRoute
+  '/posts/list/$type': typeof PostsListTypeRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/new-post/': typeof NewPostIndexRoute
+  '/posts/detail/$postId': typeof PostsDetailPostIdRoute
+  '/posts/list/$type': typeof PostsListTypeRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/new-post'
+  fullPaths: '/' | '/new-post' | '/posts/detail/$postId' | '/posts/list/$type'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/new-post'
-  id: '__root__' | '/' | '/new-post/'
+  to: '/' | '/new-post' | '/posts/detail/$postId' | '/posts/list/$type'
+  id:
+    | '__root__'
+    | '/'
+    | '/new-post/'
+    | '/posts/detail/$postId'
+    | '/posts/list/$type'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   NewPostIndexRoute: typeof NewPostIndexRoute
+  PostsDetailPostIdRoute: typeof PostsDetailPostIdRoute
+  PostsListTypeRoute: typeof PostsListTypeRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   NewPostIndexRoute: NewPostIndexRoute,
+  PostsDetailPostIdRoute: PostsDetailPostIdRoute,
+  PostsListTypeRoute: PostsListTypeRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +140,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/new-post/"
+        "/new-post/",
+        "/posts/detail/$postId",
+        "/posts/list/$type"
       ]
     },
     "/": {
@@ -105,6 +150,12 @@ export const routeTree = rootRoute
     },
     "/new-post/": {
       "filePath": "new-post/index.tsx"
+    },
+    "/posts/detail/$postId": {
+      "filePath": "posts/detail.$postId.tsx"
+    },
+    "/posts/list/$type": {
+      "filePath": "posts/list.$type.tsx"
     }
   }
 }
