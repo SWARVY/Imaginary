@@ -1,49 +1,65 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Doc } from 'convex/_generated/dataModel';
-import { PostsSchema } from 'convex/schema';
+import { PostSchema } from 'convex/schema';
 import {
   type FieldErrors,
   FormProvider,
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import { TiLinkOutline, TiPen } from 'react-icons/ti';
+import { IoIosSave } from 'react-icons/io';
+import { TiLinkOutline } from 'react-icons/ti';
 import { ToastContainer, toast } from 'react-toastify';
+import { useEditPost, useInsertPost } from '~/entities/post';
 import EditorComponent from '~/shared/ui/editor';
 import { useEditorStore } from '~/store/editor-store';
 
-import useInsertPost from '../model/useInsertPost';
+import { CATEGORIES } from '../model';
 
-const mockCategories = ['포스트', '디버그', '스니펫'];
+interface PostEditorProps {
+  defaultValue?: Doc<'post'>;
+  type?: 'CREATE' | 'EDIT';
+}
 
-export default function PostEditor() {
-  const { mutateAsync } = useInsertPost();
+export default function PostEditor({
+  defaultValue,
+  type = 'CREATE',
+}: PostEditorProps) {
+  const { mutateAsync: createMutateAsync } = useInsertPost();
+  const { mutateAsync: editMutateAsync } = useEditPost();
   const { editor } = useEditorStore();
-  const methods = useForm<Doc<'posts'>>({
-    resolver: zodResolver(PostsSchema),
-    defaultValues: {
+  const methods = useForm<Doc<'post'>>({
+    resolver: zodResolver(PostSchema),
+    defaultValues: defaultValue ?? {
+      type: 'POST',
       title: '',
-      createdAt: new Date().toISOString(),
       contents: '',
       relatedPosts: ['', '', '', ''],
     },
     mode: 'onSubmit',
   });
 
-  const handleEditorSubmit = async (data: Doc<'posts'>) => {
+  const handleEditorSubmit = async (data: Doc<'post'>) => {
     if (!editor) return;
 
     const outputData = await editor.save();
 
     if (outputData.blocks.length === 0) {
-      toast.error('작성된 글이 없습니다.');
+      return toast.error('작성된 글이 없습니다.');
+    }
+
+    const input = { ...data, contents: JSON.stringify(outputData) };
+
+    // for Debug
+    console.log(input);
+    if (type === 'CREATE') {
+      createMutateAsync({ input });
     } else {
-      console.log({ ...data, contents: JSON.stringify(outputData) });
-      mutateAsync({ ...data, contents: JSON.stringify(outputData) });
+      editMutateAsync({ input });
     }
   };
 
-  const handleSubmitError = (errors: FieldErrors<Doc<'posts'>>) => {
+  const handleSubmitError = (errors: FieldErrors<Doc<'post'>>) => {
     Object.values(errors).forEach((error) => {
       if (error && error.message) {
         toast.error(error.message);
@@ -60,7 +76,12 @@ export default function PostEditor() {
         >
           <Title />
           <div className="rounded-md py-4 ring-black focus-within:ring-2">
-            <EditorComponent className="w-full" />
+            <EditorComponent
+              className="w-full"
+              data={
+                defaultValue ? JSON.parse(defaultValue.contents) : undefined
+              }
+            />
           </div>
           <RelatedPosts />
           <SaveButtons />
@@ -93,16 +114,17 @@ function Title() {
           <input
             className="btn btn-sm btn-outline filter-reset"
             type="radio"
-            name="category"
+            name="type"
             aria-label="All"
           />
-          {...mockCategories.map((category) => (
+          {...CATEGORIES.map(({ type, value }) => (
             <input
-              key={category}
+              key={type}
               className="btn btn-sm btn-outline"
               type="radio"
-              name="category"
-              aria-label={category}
+              aria-label={value}
+              value={type}
+              {...register('type')}
             />
           ))}
         </div>
@@ -117,7 +139,7 @@ function RelatedPosts() {
 
   return (
     <fieldset className="fieldset">
-      <legend className="fieldset-legend">Related Posts</legend>
+      <legend className="fieldset-legend">Related post</legend>
       {[...Array(4)].map((_, index) => (
         <label key={index} className="input validator w-full">
           <TiLinkOutline size={16} className="opacity-50" fill="black" />
@@ -135,11 +157,15 @@ function RelatedPosts() {
 
 function SaveButtons() {
   return (
-    <button
-      type="submit"
-      className="btn btn-xl btn-outline btn-circle absolute right-10 bottom-10 bg-white transition-colors hover:bg-gray-200"
-    >
-      <TiPen className="size-6 fill-black" />
-    </button>
+    <div className="absolute right-10 bottom-10 z-20">
+      <div className="lg:tooltip" data-tip="save">
+        <button
+          type="submit"
+          className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200"
+        >
+          <IoIosSave className="size-6 fill-black" />
+        </button>
+      </div>
+    </div>
   );
 }

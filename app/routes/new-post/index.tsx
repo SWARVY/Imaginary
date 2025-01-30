@@ -1,7 +1,7 @@
 import { Protect } from '@clerk/tanstack-start';
 import { createFileRoute } from '@tanstack/react-router';
+import { PostEditor } from '~/features/post-editor';
 import NeedAuth from '~/shared/ui/need-auth';
-import { PostEditor } from '~/widget/post-editor';
 
 export const Route = createFileRoute('/new-post/')({
   component: RouteComponent,
