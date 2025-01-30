@@ -1,5 +1,5 @@
 import { SignInButton, SignOutButton, useAuth } from '@clerk/tanstack-start';
-import { Link } from '@tanstack/react-router';
+import { Link, useMatchRoute } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import {
   TiHomeOutline,
@@ -17,8 +17,8 @@ export default function BottomNavigator() {
   const { isSignedIn } = useAuth();
 
   return (
-    <div className="absolute bottom-12 flex items-center justify-center">
-      <Dock direction="middle" className="bg-white">
+    <div className="absolute bottom-10 flex w-full items-center justify-center px-10">
+      <Dock direction="middle" className="mt-0 bg-white">
         <DockIcon>
           <div className="lg:tooltip" data-tip="home">
             <Link to="/">
@@ -26,18 +26,9 @@ export default function BottomNavigator() {
             </Link>
           </div>
         </DockIcon>
-        {isSignedIn && (
-          <DockIcon>
-            <div className="lg:tooltip" data-tip="new post">
-              <Link to="/new-post">
-                <TiPen fill="black" />
-              </Link>
-            </div>
-          </DockIcon>
-        )}
         <DockIcon>
           <div className="lg:tooltip" data-tip="post">
-            <Link to="/">
+            <Link to="/posts/list/$type" params={{ type: 'POST' }}>
               <TiNews fill="black" />
             </Link>
           </div>
@@ -65,6 +56,7 @@ export default function BottomNavigator() {
           </div>
         </DockIcon>
       </Dock>
+      {isSignedIn && <WritePost />}
     </div>
   );
 }
@@ -92,5 +84,25 @@ function DarkModeSwap() {
       <TiWeatherNight className="swap-on" fill="black" />
       <TiWeatherSunny className="swap-off" fill="black" />
     </label>
+  );
+}
+
+function WritePost() {
+  const matchRoute = useMatchRoute();
+  const visible =
+    !matchRoute({ to: '/posts/detail/$postId', fuzzy: true }) &&
+    !matchRoute({ to: '/new-post' });
+
+  return (
+    visible && (
+      <div className="lg:tooltip" data-tip="new post">
+        <Link
+          to="/new-post"
+          className="btn btn-xl btn-outline btn-circle self-end bg-white transition-colors hover:bg-gray-200"
+        >
+          <TiPen className="size-6 fill-black" />
+        </Link>
+      </div>
+    )
   );
 }
