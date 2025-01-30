@@ -14,6 +14,7 @@ import { Meta, Scripts, createServerFn } from '@tanstack/start';
 import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import * as React from 'react';
+import { Toaster } from 'sonner';
 import { getWebRequest } from 'vinxi/http';
 import { BottomNavigator, TopNavigator } from '~/features/navigator';
 import { seo } from '~/shared/lib/seo';
@@ -125,6 +126,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <TopNavigator />
             {children}
           </div>
+          <Toaster />
           <BottomNavigator />
         </div>
         <ScrollRestoration />
