@@ -1,14 +1,26 @@
-import { zodToConvex } from 'convex-helpers/server/zod';
+import { zid, zodToConvex } from 'convex-helpers/server/zod';
 import { defineSchema, defineTable } from 'convex/server';
 import { z } from 'zod';
 
-export const PostsSchema = z.object({
+export const PostTypeSchema = z.union([
+  z.literal('POST'),
+  z.literal('DEBUG'),
+  z.literal('SNIPPET'),
+]);
+
+export type PostType = z.infer<typeof PostTypeSchema>;
+
+export const PostSchema = z.object({
+  _id: zid('post').optional(),
+  _creationTime: z.number().optional(),
+  type: PostTypeSchema,
   title: z.string().min(1),
-  createdAt: z.string().datetime(),
   contents: z.string(),
   relatedPosts: z.array(z.union([z.string().url(), z.literal('')])),
 });
 
+export type Post = z.infer<typeof PostSchema>;
+
 export default defineSchema({
-  posts: defineTable(zodToConvex(PostsSchema)),
+  post: defineTable(zodToConvex(PostSchema)),
 });
