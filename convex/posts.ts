@@ -18,7 +18,14 @@ export const createPost = zMutation({
 export const editPost = zMutation({
   args: { input: PostSchema },
   handler: async (ctx, args) => {
-    ctx.db.patch(args.input._id, args.input);
+    ctx.db.patch(args.input._id!, args.input);
+  },
+});
+
+export const deletePost = zMutation({
+  args: { id: zid('post') },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
   },
 });
 
