@@ -11,6 +11,8 @@ import cn from '~/shared/lib/cn';
 import DefaultError from '~/shared/ui/default-error';
 import DefaultNotification from '~/shared/ui/default-notification';
 
+import PostListSkeleton from './post-list-skeleton';
+
 interface PostListProps {
   type: PostType;
 }
@@ -28,7 +30,7 @@ export default function PostList({ type }: PostListProps) {
     <ErrorBoundary
       fallback={<DefaultError message="페이지를 로드하는데 실패했어요." />}
     >
-      <Suspense>
+      <Suspense fallback={<PostListSkeleton />}>
         <SuspenseQuery {...convexQuery(api.posts.getPosts, { type })}>
           {({ data }) => <YearlyPostList data={data} />}
         </SuspenseQuery>
@@ -56,14 +58,14 @@ function YearlyPostList({ data }: YearlyPostListProps) {
   return (
     <div
       className={cn(
-        'w-full divide-y-2 divide-black border-y border-black py-8',
+        'w-full divide-y divide-black border-y border-black',
         'dark:divide-gray-400 dark:border-gray-400',
       )}
     >
       {entriesPostsByYear.length > 0 ? (
         <>
           {entriesPostsByYear.map(([year, posts]) => (
-            <div key={year} className="group/base flex text-lg">
+            <div key={year} className="group/base flex py-8 text-lg">
               <div className="w-20">
                 <h3
                   className={cn(
