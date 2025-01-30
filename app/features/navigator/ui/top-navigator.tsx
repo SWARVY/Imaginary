@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 export default function TopNavigator() {
   return (
-    <nav className="navbar justify-between px-0">
+    <nav className="navbar mt-20 justify-between px-0">
       <h1 className="font-bold select-none">
         <Link to="/">IMAGINARY</Link>
       </h1>
