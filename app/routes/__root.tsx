@@ -121,18 +121,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="relative flex h-screen w-dvw justify-center">
+        <div className="relative grid w-full grid-cols-1 justify-items-center pt-20 pb-32">
           <div className="flex w-full max-w-3xl flex-col">
             <TopNavigator />
             {children}
           </div>
-          <Toaster />
+          <Toaster position="top-right" />
           <BottomNavigator />
+          <ScrollRestoration />
+          <TanStackRouterDevtools position="bottom-right" />
+          <ReactQueryDevtools buttonPosition="bottom-left" />
+          <Scripts />
         </div>
-        <ScrollRestoration />
-        <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="bottom-left" />
-        <Scripts />
       </body>
     </html>
   );

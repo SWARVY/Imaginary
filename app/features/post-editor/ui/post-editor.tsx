@@ -160,7 +160,7 @@ function RelatedPosts() {
 
 function SaveButtons() {
   return (
-    <div className="absolute right-10 bottom-10 z-20">
+    <div className="fixed right-10 bottom-10 z-20">
       <div className="lg:tooltip" data-tip="save">
         <button
           type="submit"

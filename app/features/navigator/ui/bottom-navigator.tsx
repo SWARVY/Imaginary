@@ -18,7 +18,7 @@ export default function BottomNavigator() {
 
   return (
     <>
-      <div className="absolute bottom-10 flex w-full items-center justify-center px-10">
+      <div className="fixed bottom-10 flex w-full items-center justify-center px-10">
         <Dock direction="middle" className="mt-0 bg-white">
           <DockIcon>
             <div className="lg:tooltip" data-tip="home">
@@ -97,7 +97,7 @@ function WritePost() {
 
   return (
     visible && (
-      <div className="absolute right-10 bottom-10">
+      <div className="fixed right-10 bottom-10">
         <div className="lg:tooltip" data-tip="new post">
           <Link
             to="/new-post"

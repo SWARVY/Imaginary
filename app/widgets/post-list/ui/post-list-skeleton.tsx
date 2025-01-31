@@ -8,12 +8,17 @@ export default function PostListSkeleton() {
         'dark:divide-gray-400 dark:border-gray-400',
       )}
     >
-      {Array.from({ length: 3 }, () => (
-        <div className="flex gap-x-8 py-8 text-lg">
+      {Array.from({ length: 3 }, (_, parentIdx) => (
+        <div
+          key={`skeleton-list-${parentIdx}`}
+          className="flex gap-x-8 py-8 text-lg"
+        >
           <div className="skeleton h-8 w-12 px-1 py-0.5" />
           <ul className="grow space-y-4">
-            {Array.from({ length: 5 }).map((_, idx) => (
-              <PostListSkeletonItem key={idx} />
+            {Array.from({ length: 5 }).map((_, childIdx) => (
+              <PostListSkeletonItem
+                key={`skeleton-list-item-${parentIdx}-${childIdx}`}
+              />
             ))}
           </ul>
         </div>

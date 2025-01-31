@@ -1,5 +1,6 @@
 import { SignedIn } from '@clerk/tanstack-start';
 import { convexQuery } from '@convex-dev/react-query';
+import Giscus from '@giscus/react';
 import { SuspenseQuery } from '@suspensive/react-query';
 import { api } from 'convex/_generated/api';
 import type { Doc, Id } from 'convex/_generated/dataModel';
@@ -76,6 +77,20 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
           )}
         </div>
       </ul>
+      <Giscus
+        id="comments"
+        repo="SWARVY/Imaginary"
+        repoId="R_kgDONrtNMw="
+        category="Announcements"
+        categoryId="DIC_kwDONrtNM84Cmfgt"
+        mapping="pathname"
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="bottom"
+        theme="light"
+        lang="en"
+        loading="lazy"
+      />
       <SignedIn>
         <PostManageButtonsProps
           edit={() => setEditMode(true)}
@@ -90,7 +105,7 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
 
 function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
   return (
-    <div className="absolute right-10 bottom-10 z-20 flex flex-col gap-y-2">
+    <div className="fixed right-10 bottom-10 z-20 flex flex-col gap-y-2">
       <div className="lg:tooltip" data-tip="delete">
         <AlertDialog
           title="포스트를 삭제하실건가요?"

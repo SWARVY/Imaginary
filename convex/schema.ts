@@ -21,6 +21,12 @@ export const PostSchema = z.object({
 
 export type Post = z.infer<typeof PostSchema>;
 
+export const FileSchema = z.object({
+  body: z.string(),
+  format: z.literal('image'),
+});
+
 export default defineSchema({
   post: defineTable(zodToConvex(PostSchema)),
+  file: defineTable(zodToConvex(FileSchema)),
 });

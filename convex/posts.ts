@@ -1,12 +1,7 @@
-import { NoOp } from 'convex-helpers/server/customFunctions';
-import { zCustomMutation, zCustomQuery, zid } from 'convex-helpers/server/zod';
+import { zid } from 'convex-helpers/server/zod';
+import { zMutation, zQuery } from '~/shared/lib/zod-convex';
 
-import { mutation, query } from './_generated/server';
 import { PostSchema, PostTypeSchema } from './schema';
-
-const zMutation = zCustomMutation(mutation, NoOp);
-
-const zQuery = zCustomQuery(query, NoOp);
 
 export const createPost = zMutation({
   args: { input: PostSchema.omit({ _id: true, _creationTime: true }) },

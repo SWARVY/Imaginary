@@ -9,5 +9,9 @@ export const Route = createFileRoute('/posts/detail/$postId')({
 function RouteComponent() {
   const { postId } = Route.useParams();
 
-  return <PostViewer postId={postId as Id<'post'>} />;
+  return (
+    <div className="size-full">
+      <PostViewer postId={postId as Id<'post'>} />
+    </div>
+  );
 }
