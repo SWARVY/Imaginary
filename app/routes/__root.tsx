@@ -21,6 +21,7 @@ import { seo } from '~/shared/lib/seo';
 import { DefaultCatchBoundary } from '~/shared/ui/default-catch-boundary';
 import { NotFound } from '~/shared/ui/not-found';
 import appCss from '~/styles/app.css?url';
+import editorCss from '~/styles/editor.css?url';
 
 const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
   const auth = await getAuth(getWebRequest()!);
@@ -53,6 +54,7 @@ export const Route = createRootRouteWithContext<{
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
+      { rel: 'stylesheet', href: editorCss },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
