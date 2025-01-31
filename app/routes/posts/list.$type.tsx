@@ -18,7 +18,7 @@ function RouteComponent() {
   const { type } = Route.useParams();
 
   return (
-    <div className="space-y-8">
+    <div className="size-full space-y-8">
       <PostTab />
       <PostList type={type as PostType} />
     </div>
