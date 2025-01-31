@@ -9,6 +9,7 @@ export default function PostTab() {
     <div role="tablist" className="tabs tabs-border tabs-lg">
       {CATEGORIES.map(({ type, value }) => (
         <Link
+          key={type}
           to="/posts/list/$type"
           params={{ type }}
           role="tab"
