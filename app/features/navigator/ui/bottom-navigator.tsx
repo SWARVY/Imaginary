@@ -64,12 +64,12 @@ export default function BottomNavigator() {
 }
 
 function DarkModeSwap() {
-  const toggleTheme = () => {
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
+  // const toggleTheme = () => {
+  //   const currentTheme = localStorage.getItem('theme') || 'light';
+  //   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  //   document.documentElement.setAttribute('data-theme', newTheme);
+  //   localStorage.setItem('theme', newTheme);
+  // };
 
   useEffect(() => {
     themeChange(false);
@@ -80,8 +80,8 @@ function DarkModeSwap() {
       <input
         type="checkbox"
         className="theme-controller"
-        value="dark"
-        onChange={toggleTheme}
+        data-toggle-theme="sunset,lofi"
+        data-act-class="ACTIVECLASS"
       />
       <TiWeatherNight className="swap-on" fill="black" />
       <TiWeatherSunny className="swap-off" fill="black" />

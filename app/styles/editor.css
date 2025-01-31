@@ -1,0 +1,122 @@
+[data-theme='sunset'] {
+  --editor-background: oklch(18% 0.02 237.69);
+  --editor-foreground: oklch(72% 0.04 245.096);
+  --editor-border: oklch(30% 0.03 237.69);
+  --editor-muted: oklch(22% 0.02 237.69);
+  --editor-accent: oklch(68% 0.15 299.844);
+  --editor-popover: oklch(16% 0.02 237.69);
+}
+
+[data-theme='sunset'] .ce-popover,
+[data-theme='sunset'] .ce-popover-item,
+[data-theme='sunset'] .ce-popover-item__icon,
+[data-theme='sunset'] .ce-popover-items,
+[data-theme='sunset'] .ce-popover__container,
+[data-theme='sunset'] .ce-popover-item:hover {
+  background-color: var(--editor-background);
+  border-color: var(--editor-border);
+}
+
+[data-theme='sunset'] .ce-popover__container {
+  background: var(--editor-background);
+}
+
+[data-theme='sunset'] .ce-popover--opened > .ce-popover__container {
+  border: 1px solid var(--editor-border);
+}
+
+[data-theme='sunset'] .ce-popover-item-separator__line {
+  border: 1px solid var(--editor-border);
+}
+
+[data-theme='sunset'] .ce-toolbar__plus,
+[data-theme='sunset'] .ce-toolbar__settings-btn,
+[data-theme='sunset'] .ce-popover-item__title,
+[data-theme='sunset'] .ce-inline-tool,
+[data-theme='sunset'] .ce-inline-tool--link,
+[data-theme='sunset'] .ce-popover-item__icon {
+  color: var(--editor-foreground);
+}
+
+[data-theme='sunset'] .cdx-search-field.ce-popover__search {
+  background-color: color-mix(in oklab, var(--editor-muted) 30%, transparent);
+  border-color: var(--editor-border);
+}
+
+[data-theme='sunset'] .cdx-search-field__input {
+  color: var(--editor-foreground);
+}
+
+[data-theme='sunset'] .cdx-block,
+[data-theme='sunset'] .ce-block {
+  color: var(--editor-foreground);
+}
+
+[data-theme='sunset'] .ce-inline-toolbar,
+[data-theme='sunset'] .ce-conversion-tool__icon,
+[data-theme='sunset'] .ce-popover-item__icon,
+[data-theme='sunset'] .tc-popover__item-icon {
+  color: var(--editor-foreground);
+  background-color: var(--editor-background);
+  border-color: var(--editor-border);
+}
+
+[data-theme='sunset'] .ce-popover,
+[data-theme='sunset'] .ce-conversion-toolbar,
+[data-theme='sunset'] .ce-inline-toolbar,
+[data-theme='sunset'] .tc-popover {
+  background-color: var(--editor-popover);
+  border-color: var(--editor-border);
+  box-shadow: 0 3px 15px -3px
+    color-mix(in oklab, var(--editor-border) 20%, transparent);
+}
+
+[data-theme='sunset'] .ce-inline-tool {
+  color: var(--editor-foreground);
+}
+
+[data-theme='sunset'] .ce-inline-tool:hover,
+[data-theme='sunset'] .ce-inline-toolbar__dropdown:hover,
+[data-theme='sunset'] .ce-toolbar__plus:hover,
+[data-theme='sunset'] .ce-toolbar__settings-btn:hover,
+[data-theme='sunset'] .ce-conversion-tool:hover,
+[data-theme='sunset'] .ce-popover-item:hover {
+  background-color: color-mix(in oklab, var(--editor-accent) 30%, transparent);
+}
+
+[data-theme='sunset'] *::selection,
+[data-theme='sunset'] .ce-block.ce-block--selected .ce-block__content {
+  background-color: color-mix(in oklab, var(--editor-accent) 20%, transparent);
+}
+
+[data-theme='sunset'] .ce-popover__items {
+  scrollbar-color: var(--editor-border) var(--editor-background);
+}
+
+/* table class wrapper */
+[data-theme='sunset'] .tc-wrap,
+[data-theme='sunset'] .tc-wrap * {
+  --color-border: var(--editor-border);
+  --color-text-secondary: var(--editor-foreground);
+  --color-background: color-mix(
+    in oklab,
+    var(--editor-accent) 20%,
+    transparent
+  );
+  --toggler-dots-color: color-mix(
+    in oklab,
+    var(--editor-accent) 20%,
+    transparent
+  );
+  --toggler-dots-color-hovered: var(--editor-foreground);
+}
+
+@media (max-width: 650px) {
+  [data-theme='sunset'] .ce-toolbar__settings-btn,
+  [data-theme='sunset'] .ce-toolbar__plus {
+    background-color: var(--editor-popover);
+    border-color: var(--editor-border);
+    box-shadow: 0 3px 15px -3px
+      color-mix(in oklab, var(--editor-border) 20%, transparent);
+  }
+}

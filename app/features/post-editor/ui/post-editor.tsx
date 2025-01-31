@@ -78,7 +78,13 @@ export default function PostEditor({
         >
           <Title />
           <div className="rounded-md py-4 ring-black focus-within:ring-2 dark:ring-white">
-            <Suspense fallback="...loading">
+            <Suspense
+              fallback={
+                <div className="flex size-full justify-center">
+                  <span className="loading loading-infinity loading-xl" />
+                </div>
+              }
+            >
               <EditorComponent
                 className="w-full"
                 data={
@@ -144,7 +150,7 @@ function RelatedPosts() {
         <label key={index} className="input validator w-full">
           <TiLinkOutline
             size={16}
-            className="fill-black opacity-50 dark:fill-gray-200"
+            className="fill-black opacity-80 dark:fill-gray-500"
           />
           <input
             type="url"
