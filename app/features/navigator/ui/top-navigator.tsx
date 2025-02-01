@@ -28,6 +28,9 @@ function UtilityButtons() {
 
 function DarkModeButton() {
   useEffect(() => {
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'lofi');
+    }
     themeChange(false);
   }, []);
 
