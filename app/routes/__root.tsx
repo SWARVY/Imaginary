@@ -123,7 +123,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="relative grid w-full grid-cols-1 justify-items-center pt-20 pb-32">
+        <div className="font-pretendard flex w-full flex-col items-center justify-center px-4 pt-20 pb-32 md:px-0">
           <div className="flex w-full max-w-3xl flex-col">
             <TopNavigator />
             {children}
