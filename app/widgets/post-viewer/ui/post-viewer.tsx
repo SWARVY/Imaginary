@@ -5,10 +5,11 @@ import { SuspenseQuery } from '@suspensive/react-query';
 import { api } from 'convex/_generated/api';
 import type { Doc, Id } from 'convex/_generated/dataModel';
 import { format } from 'date-fns';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import { useDeletePost } from '~/entities/post';
 import { PostEditor } from '~/features/post-editor';
+import openModal from '~/shared/lib/open-modal';
 import AlertDialog from '~/shared/ui/alert-dialog';
 import { NotFound } from '~/shared/ui/not-found';
 
@@ -77,20 +78,7 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
           )}
         </div>
       </ul>
-      <Giscus
-        id="comments"
-        repo="SWARVY/Imaginary"
-        repoId="R_kgDONrtNMw="
-        category="Announcements"
-        categoryId="DIC_kwDONrtNM84Cmfgt"
-        mapping="pathname"
-        reactionsEnabled="1"
-        emitMetadata="0"
-        inputPosition="bottom"
-        theme="light"
-        lang="en"
-        loading="lazy"
-      />
+      <PostComments />
       <SignedIn>
         <PostManageButtonsProps
           edit={() => setEditMode(true)}
@@ -103,18 +91,66 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
   );
 }
 
+function PostComments() {
+  const [theme, setTheme] = useState<string>(
+    document.documentElement.getAttribute('data-theme') === 'lofi'
+      ? 'light_high_contrast'
+      : 'https://giscus.app/themes/custom_example.css',
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const currTheme =
+        document.documentElement.getAttribute('data-theme') ?? 'lofi';
+      const giscusTheme =
+        currTheme === 'lofi'
+          ? 'light_high_contrast'
+          : 'https://giscus.app/themes/custom_example.css';
+      setTheme(giscusTheme);
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <Giscus
+      id="comments"
+      repo="SWARVY/Imaginary"
+      repoId="R_kgDONrtNMw="
+      category="Announcements"
+      categoryId="DIC_kwDONrtNM84Cmfgt"
+      mapping="pathname"
+      reactionsEnabled="1"
+      emitMetadata="0"
+      inputPosition="bottom"
+      theme={theme}
+      lang="en"
+      loading="lazy"
+    />
+  );
+}
+
 function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
   return (
-    <div className="fixed right-10 bottom-10 z-20 flex flex-col gap-y-2">
+    <div className="fixed right-10 bottom-10 z-40 flex flex-col gap-y-2">
       <div className="lg:tooltip" data-tip="delete">
-        <AlertDialog
-          title="포스트를 삭제하실건가요?"
-          description="포스트를 삭제하면 복구가 불가능해요 😢"
-          onClick={remove}
+        <button
+          type="button"
+          className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200"
+          onClick={() => openModal('delete-dialog')}
         >
-          <div className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200">
-            <TiDelete className="size-6 fill-black" />
-          </div>
+          <TiDelete className="size-6 fill-black" />
+        </button>
+        <AlertDialog id="delete-dialog" onClick={remove}>
+          <h3 className="text-lg font-bold">포스트를 삭제하실건가요?</h3>
+          <p className="py-4">포스트를 삭제하면 복구가 불가능해요 😢</p>
         </AlertDialog>
       </div>
       <div className="lg:tooltip" data-tip="edit">
