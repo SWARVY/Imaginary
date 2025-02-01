@@ -5,6 +5,10 @@
     sunset --prefersdark;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   .using-mouse * {
     outline: none !important;
