@@ -1,17 +1,19 @@
 import { SignedIn } from '@clerk/tanstack-start';
 import { convexQuery } from '@convex-dev/react-query';
-import Giscus from '@giscus/react';
 import { SuspenseQuery } from '@suspensive/react-query';
 import { api } from 'convex/_generated/api';
 import type { Doc, Id } from 'convex/_generated/dataModel';
 import { format } from 'date-fns';
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import { useDeletePost } from '~/entities/post';
 import { PostEditor } from '~/features/post-editor';
 import openModal from '~/shared/lib/open-modal';
 import AlertDialog from '~/shared/ui/alert-dialog';
 import { NotFound } from '~/shared/ui/not-found';
+
+import PostComments from './post-comments';
+import PostTOC from './post-toc';
 
 const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
@@ -85,55 +87,10 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
           remove={() => mutateAsync({ id: data._id })}
         />
       </SignedIn>
+      <PostTOC />
     </div>
   ) : (
     <PostEditor type="EDIT" defaultValue={data} />
-  );
-}
-
-function PostComments() {
-  const [theme, setTheme] = useState<string>(
-    document.documentElement.getAttribute('data-theme') === 'lofi'
-      ? 'light_high_contrast'
-      : 'https://giscus.app/themes/custom_example.css',
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const currTheme =
-        document.documentElement.getAttribute('data-theme') ?? 'lofi';
-      const giscusTheme =
-        currTheme === 'lofi'
-          ? 'light_high_contrast'
-          : 'https://giscus.app/themes/custom_example.css';
-      setTheme(giscusTheme);
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  return (
-    <Giscus
-      id="comments"
-      repo="SWARVY/Imaginary"
-      repoId="R_kgDONrtNMw="
-      category="Announcements"
-      categoryId="DIC_kwDONrtNM84Cmfgt"
-      mapping="pathname"
-      reactionsEnabled="1"
-      emitMetadata="0"
-      inputPosition="bottom"
-      theme={theme}
-      lang="en"
-      loading="lazy"
-    />
   );
 }
 
