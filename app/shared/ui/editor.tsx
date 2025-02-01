@@ -1,6 +1,9 @@
 import CodeTool from '@editorjs/code';
 import Delimiter from '@editorjs/delimiter';
-import EditorJS, { OutputData } from '@editorjs/editorjs';
+import EditorJS, {
+  type OutputData,
+  type ToolConstructable,
+} from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import ImageTool from '@editorjs/image';
 import InlineCode from '@editorjs/inline-code';
@@ -13,6 +16,8 @@ import { useMutation } from 'convex/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { useEditorStore } from '~/store/editor-store';
+
+import cn from '../lib/cn';
 
 const convexSiteUrl = import.meta.env.VITE_CONVEX_SITE_URL;
 
@@ -35,7 +40,15 @@ export default function EditorComponent({
     const editor = new EditorJS({
       holder: 'editorjs',
       tools: {
-        header: Header,
+        // todo: @editorjs/header 타입 수정 되면 변경할 것
+        header: {
+          class: Header as unknown as ToolConstructable,
+          config: {
+            placeholder: '여기에 헤더를 입력해주세요 ✨',
+            levels: [2, 3, 4],
+            defaultLevel: 3,
+          },
+        },
         image: {
           class: ImageTool,
           config: {
@@ -90,7 +103,7 @@ export default function EditorComponent({
           shortcut: 'CMD+SHIFT+M',
         },
       },
-      placeholder: '여기에 내용을 입력하세요...',
+      placeholder: '여기에 내용을 입력하세요 ✨',
       onReady: () => initialize(editor),
       readOnly,
       data,
@@ -103,5 +116,5 @@ export default function EditorComponent({
     };
   }, []);
 
-  return <div id="editorjs" className={className} />;
+  return <div id="editorjs" className={cn(className, 'font-light')} />;
 }

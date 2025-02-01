@@ -1,61 +1,48 @@
 import { SignInButton, SignOutButton, useAuth } from '@clerk/tanstack-start';
-import { Link, useMatchRoute } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import { useMatchRoute, useRouter } from '@tanstack/react-router';
 import {
   TiHomeOutline,
   TiLockClosedOutline,
   TiLockOpenOutline,
   TiNews,
   TiPen,
-  TiWeatherNight,
-  TiWeatherSunny,
 } from 'react-icons/ti';
-import { themeChange } from 'theme-change';
 import { Dock, DockIcon } from '~/shared/ui/dock';
 
 export default function BottomNavigator() {
   const { isSignedIn } = useAuth();
+  const router = useRouter();
 
   return (
     <>
-      <div className="fixed bottom-10 flex w-full items-center justify-center px-10">
-        <Dock direction="middle" className="mt-0 bg-white">
-          <DockIcon>
-            <div className="lg:tooltip" data-tip="home">
-              <Link to="/">
-                <TiHomeOutline fill="black" />
-              </Link>
-            </div>
+      <div className="fixed bottom-4 z-30 flex w-full items-center justify-center px-10 md:bottom-10">
+        <Dock direction="middle" className="mt-0 gap-x-4 bg-white">
+          <DockIcon onClick={() => router.navigate({ to: '/' })}>
+            <TiHomeOutline className="size-5 fill-black" />
           </DockIcon>
-          <DockIcon>
-            <div className="lg:tooltip" data-tip="post">
-              <Link to="/posts/list/$type" params={{ type: 'POST' }}>
-                <TiNews fill="black" />
-              </Link>
-            </div>
+          <DockIcon
+            onClick={() =>
+              router.navigate({
+                to: '/posts/list/$type',
+                params: { type: 'POST' },
+              })
+            }
+          >
+            <TiNews className="size-5 fill-black" />
           </DockIcon>
           {isSignedIn ? (
             <DockIcon>
-              <div className="lg:tooltip" data-tip="sign out">
-                <SignOutButton>
-                  <TiLockOpenOutline fill="black" />
-                </SignOutButton>
-              </div>
+              <SignOutButton>
+                <TiLockOpenOutline className="size-5 fill-black" />
+              </SignOutButton>
             </DockIcon>
           ) : (
             <DockIcon>
-              <div className="lg:tooltip" data-tip="sign in">
-                <SignInButton mode="modal">
-                  <TiLockClosedOutline fill="black" />
-                </SignInButton>
-              </div>
+              <SignInButton mode="modal">
+                <TiLockClosedOutline className="size-5 fill-black" />
+              </SignInButton>
             </DockIcon>
           )}
-          <DockIcon>
-            <div className="lg:tooltip" data-tip="dark mode">
-              <DarkModeSwap />
-            </div>
-          </DockIcon>
         </Dock>
       </div>
       {isSignedIn && <WritePost />}
@@ -63,48 +50,24 @@ export default function BottomNavigator() {
   );
 }
 
-function DarkModeSwap() {
-  // const toggleTheme = () => {
-  //   const currentTheme = localStorage.getItem('theme') || 'light';
-  //   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  //   document.documentElement.setAttribute('data-theme', newTheme);
-  //   localStorage.setItem('theme', newTheme);
-  // };
-
-  useEffect(() => {
-    themeChange(false);
-  }, []);
-
-  return (
-    <label className="swap swap-rotate">
-      <input
-        type="checkbox"
-        className="theme-controller"
-        data-toggle-theme="sunset,lofi"
-        data-act-class="ACTIVECLASS"
-      />
-      <TiWeatherNight className="swap-on" fill="black" />
-      <TiWeatherSunny className="swap-off" fill="black" />
-    </label>
-  );
-}
-
 function WritePost() {
   const matchRoute = useMatchRoute();
+  const router = useRouter();
   const visible =
     !matchRoute({ to: '/posts/detail/$postId', fuzzy: true }) &&
     !matchRoute({ to: '/new-post' });
 
   return (
     visible && (
-      <div className="fixed right-10 bottom-10">
+      <div className="fixed right-4 bottom-4 z-40 md:right-10 md:bottom-10">
         <div className="lg:tooltip" data-tip="new post">
-          <Link
-            to="/new-post"
-            className="btn btn-xl btn-outline btn-circle self-end bg-white transition-colors hover:bg-gray-200"
+          <button
+            className="btn btn-xl btn-outline btn-primary btn-circle"
+            data-tip="new post"
+            onClick={() => router.navigate({ to: '/new-post' })}
           >
-            <TiPen className="size-6 fill-black" />
-          </Link>
+            <TiPen className="size-6" />
+          </button>
         </div>
       </div>
     )
