@@ -48,39 +48,46 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
   const { mutateAsync } = useDeletePost();
 
   return !editMode ? (
-    <div className="space-y-8">
-      <div>
-        <h2 className="font-bold">{data.title}</h2>
-        <div className="flex items-center gap-x-1 text-sm font-light">
-          <time>{format(data._creationTime, 'MMM dd, yyyy')}</time>
-          <p>&middot;</p>
-          <p className="font-medium">신현호</p>
+    <>
+      <div className="space-y-8">
+        <div>
+          <h2 className="font-bold">{data.title}</h2>
+          <div className="flex items-center gap-x-1 text-sm font-light">
+            <time>{format(data._creationTime, 'MMM dd, yyyy')}</time>
+            <p>&middot;</p>
+            <p className="font-medium">신현호</p>
+          </div>
         </div>
+        <Suspense fallback="...loading">
+          <EditorComponent
+            className="w-full"
+            readOnly
+            data={JSON.parse(data.contents)}
+          />
+        </Suspense>
+        <div className="w-full space-y-2">
+          <h3 className="text-sm font-medium">Related Posts</h3>
+          <ul className="space-y-2 rounded-md border p-2">
+            {relatedPosts.length > 0 ? (
+              <>
+                {relatedPosts.map((link, idx) => (
+                  <li
+                    key={`${link}-${idx}`}
+                    className="link link-hover text-sm"
+                  >
+                    <a href={link} target="_blank">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </>
+            ) : (
+              <li className="py-8 text-center">연관된 게시글이 없어요 📭</li>
+            )}
+          </ul>
+        </div>
+        <PostComments />
       </div>
-      <Suspense fallback="...loading">
-        <EditorComponent
-          className="w-full"
-          readOnly
-          data={JSON.parse(data.contents)}
-        />
-      </Suspense>
-      <ul className="w-full space-y-2">
-        <h3 className="text-sm font-medium">Related Posts</h3>
-        <div className="rounded-md border p-2">
-          {relatedPosts.length > 0 ? (
-            <>
-              {relatedPosts.map((link, idx) => (
-                <a key={`${link}-${idx}`} href={link} target="_blank">
-                  {link}
-                </a>
-              ))}
-            </>
-          ) : (
-            <div className="py-8 text-center">연관된 게시글이 없어요 📭</div>
-          )}
-        </div>
-      </ul>
-      <PostComments />
       <SignedIn>
         <PostManageButtonsProps
           edit={() => setEditMode(true)}
@@ -88,7 +95,7 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
         />
       </SignedIn>
       <PostTOC />
-    </div>
+    </>
   ) : (
     <PostEditor type="EDIT" defaultValue={data} />
   );
@@ -96,7 +103,7 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
 
 function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
   return (
-    <div className="fixed right-10 bottom-10 z-40 flex flex-col gap-y-2">
+    <div className="fixed right-4 bottom-4 z-40 flex flex-col gap-y-2 md:right-10 md:bottom-10">
       <div className="lg:tooltip" data-tip="delete">
         <button
           type="button"

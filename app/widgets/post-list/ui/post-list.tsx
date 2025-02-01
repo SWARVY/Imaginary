@@ -66,7 +66,7 @@ function YearlyPostList({ data }: YearlyPostListProps) {
         <>
           {entriesPostsByYear.map(([year, posts]) => (
             <div key={year} className="group/base flex py-8 text-lg">
-              <div className="w-20">
+              <div className="w-16 shrink-0">
                 <h3
                   className={cn(
                     'w-fit cursor-pointer rounded-md px-1 py-0.5 font-light',
@@ -108,7 +108,7 @@ function PostItem({ post }: PostItemProps) {
     >
       <h4
         className={cn(
-          'rounded-md px-1 py-0.5',
+          'rounded-md px-1 py-0.5 break-all',
           'transition-colors group-hover/item:bg-gray-300 dark:group-hover/item:text-black',
         )}
       >
@@ -116,7 +116,7 @@ function PostItem({ post }: PostItemProps) {
       </h4>
       <time
         className={cn(
-          'rounded-md px-1 py-0.5 font-light',
+          'shrink-0 rounded-md px-1 py-0.5 font-light',
           'transition-colors group-hover/item:bg-gray-300 dark:group-hover/item:text-black',
         )}
       >

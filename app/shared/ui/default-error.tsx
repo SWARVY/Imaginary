@@ -1,13 +1,15 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Link } from '@tanstack/react-router';
 
+import cn from '../lib/cn';
+
 interface DefaultErrorProps {
   message: string;
 }
 
 export default function DefaultError({ message }: DefaultErrorProps) {
   return (
-    <div className="hero h-full self-center">
+    <div className={cn('hero size-full', 'pt-14 pb-16 md:pt-28 md:pb-32')}>
       <div className="hero-content text-center">
         <div className="max-w-md">
           <DotLottieReact src="/astronaut.lottie" loop autoplay />

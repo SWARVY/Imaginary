@@ -126,11 +126,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <div
           className={cn(
-            'flex w-full flex-col items-center justify-center',
-            'font-pretendard px-4 pt-20 pb-32 md:px-0',
+            'flex min-h-full w-full flex-col items-center',
+            'font-pretendard px-4 pt-4 pb-32 md:px-0 md:pt-20',
           )}
         >
-          <div className="flex w-full max-w-3xl flex-col">
+          <div className="flex size-full max-w-3xl flex-col">
             <TopNavigator />
             {children}
           </div>

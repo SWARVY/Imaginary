@@ -13,7 +13,7 @@ export default function PostListSkeleton() {
           key={`skeleton-list-${parentIdx}`}
           className="flex gap-x-8 py-8 text-lg"
         >
-          <div className="skeleton h-8 w-12 px-1 py-0.5" />
+          <div className="skeleton h-8 w-12 shrink-0 px-1 py-0.5" />
           <ul className="grow space-y-4">
             {Array.from({ length: 5 }).map((_, childIdx) => (
               <PostListSkeletonItem
@@ -29,9 +29,9 @@ export default function PostListSkeleton() {
 
 function PostListSkeletonItem() {
   return (
-    <div className="group/item flex justify-between">
-      <div className="skeleton h-8 w-60 px-1 py-0.5" />
-      <div className="skeleton h-8 w-20 px-1 py-0.5" />
+    <div className="group/item flex justify-between gap-x-2">
+      <div className="skeleton h-8 w-full max-w-60 px-1 py-0.5" />
+      <div className="skeleton h-8 w-20 shrink-0 px-1 py-0.5" />
     </div>
   );
 }

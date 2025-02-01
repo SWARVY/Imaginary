@@ -70,11 +70,11 @@ export default function PostTOC() {
   }, []);
 
   return (
-    <nav className="fixed top-24 left-10 w-[18.75rem] p-4">
+    <nav className="fixed top-20 left-10 hidden w-[18.75rem] p-4 2xl:block">
       <ul className="space-y-2">
         {headings.map(({ id, text, level }) => (
-          <li key={id} className={`ml-${(level - 2) * 4}`}>
-            <a href={`#${id}`} className="text-sm break-keep">
+          <li key={id} className={`pl-${(level - 2) * 4}`}>
+            <a href={`#${id}`} className="link link-hover text-sm break-keep">
               {text}
             </a>
           </li>
