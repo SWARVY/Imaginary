@@ -14,6 +14,7 @@ import { NotFound } from '~/shared/ui/not-found';
 
 import PostComments from './post-comments';
 import PostTOC from './post-toc';
+import PostViewerSkeleton from './post-viewer-skeleton';
 
 const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
@@ -32,7 +33,7 @@ interface PostManageButtonsProps {
 
 export default function PostViewer({ postId }: PostViewerProps) {
   return (
-    <Suspense>
+    <Suspense fallback={<PostViewerSkeleton />}>
       <SuspenseQuery {...convexQuery(api.posts.getPostDetail, { id: postId })}>
         {({ data }) =>
           data ? <PostViewerContents data={data} /> : <NotFound />
@@ -55,10 +56,22 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
           <div className="flex items-center gap-x-1 text-sm font-light">
             <time>{format(data._creationTime, 'MMM dd, yyyy')}</time>
             <p>&middot;</p>
-            <p className="font-medium">신현호</p>
+            <a
+              href="https://github.com/SWARVY"
+              target="_blank"
+              className="link link-hover font-medium"
+            >
+              신현호
+            </a>
           </div>
         </div>
-        <Suspense fallback="...loading">
+        <Suspense
+          fallback={
+            <div className="flex size-full justify-center">
+              <span className="loading loading-infinity loading-xl" />
+            </div>
+          }
+        >
           <EditorComponent
             className="w-full"
             readOnly
@@ -71,11 +84,9 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
             {relatedPosts.length > 0 ? (
               <>
                 {relatedPosts.map((link, idx) => (
-                  <li
-                    key={`${link}-${idx}`}
-                    className="link link-hover text-sm"
-                  >
-                    <a href={link} target="_blank">
+                  <li key={`${link}-${idx}`} className="text-sm">
+                    {'> '}
+                    <a href={link} target="_blank" className="link link-hover">
                       {link}
                     </a>
                   </li>

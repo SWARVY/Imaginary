@@ -5,37 +5,39 @@ export default function Introduce() {
     <div className="flex flex-col gap-y-4">
       <div className="space-y-4 divide-y">
         <h3 className="py-2 text-lg font-bold">🔮 Introduce</h3>
-        <ul className="space-y-2 text-sm">
+        <div className="space-y-2 text-sm">
           <div className="flex gap-x-1 text-sm font-bold">
             <p>신현호</p>
             <span>&middot;</span>
             <p>SWARVY</p>
           </div>
-          <li>React, Next, Typescript Enthusiast</li>
-          <li className="flex flex-wrap items-center gap-x-1">
-            I am keenly passionate about
-            <a
-              href="https://tanstack.com/start/latest/docs/framework/react/overview"
-              target="_blank"
-              className="link link-primary font-bold"
-            >
-              @tanstack/start
-            </a>
-            &
-            <a
-              href="https://tanstack.com/router/latest/docs/framework/react/overview"
-              target="_blank"
-              className="link link-primary font-bold"
-            >
-              @tanstack/router
-            </a>
-          </li>
-        </ul>
+          <div>
+            <p>React, Next, Typescript Enthusiast</p>
+            <p className="flex flex-wrap items-center gap-x-1">
+              I am keenly passionate about
+              <a
+                href="https://tanstack.com/start/latest/docs/framework/react/overview"
+                target="_blank"
+                className="link link-primary font-bold"
+              >
+                @tanstack/start
+              </a>
+              &
+              <a
+                href="https://tanstack.com/router/latest/docs/framework/react/overview"
+                target="_blank"
+                className="link link-primary font-bold"
+              >
+                @tanstack/router
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
       <div className="space-y-4 divide-y">
         <h3 className="py-2 text-lg font-bold">🚀 Work</h3>
-        <ul className="space-y-2 text-sm">
-          <li className="flex items-center gap-x-1">
+        <div className="space-y-2 text-sm">
+          <p className="flex items-center gap-x-1">
             2024.12.02 ~
             <a
               href="https://buttersoft.io/"
@@ -45,12 +47,12 @@ export default function Introduce() {
               Buttersoft
             </a>
             Frontend Developer
-          </li>
-        </ul>
+          </p>
+        </div>
       </div>
       <div className="space-y-4 divide-y">
         <h3 className="py-2 text-lg font-bold">🛠️ ETC</h3>
-        <p className="space-x-1">
+        <p className="space-x-1 text-sm">
           This site is built with
           <span className="font-bold"> @tanstack/start</span>
           <br />
