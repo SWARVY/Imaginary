@@ -17,6 +17,7 @@ import * as React from 'react';
 import { Toaster } from 'sonner';
 import { getWebRequest } from 'vinxi/http';
 import { BottomNavigator, TopNavigator } from '~/features/navigator';
+import cn from '~/shared/lib/cn';
 import { seo } from '~/shared/lib/seo';
 import { DefaultCatchBoundary } from '~/shared/ui/default-catch-boundary';
 import { NotFound } from '~/shared/ui/not-found';
@@ -123,7 +124,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="font-pretendard flex w-full flex-col items-center justify-center px-4 pt-20 pb-32 md:px-0">
+        <div
+          className={cn(
+            'flex w-full flex-col items-center justify-center',
+            'font-pretendard px-4 pt-20 pb-32 md:px-0',
+          )}
+        >
           <div className="flex w-full max-w-3xl flex-col">
             <TopNavigator />
             {children}
