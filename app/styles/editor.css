@@ -120,3 +120,31 @@
       color-mix(in oklab, var(--editor-border) 20%, transparent);
   }
 }
+
+.codex-editor__redactor {
+  padding-bottom: 100px !important;
+  font-weight: 300;
+}
+
+.ce-delimiter:before {
+  display: inline !important;
+  /* align-items: center !important; */
+}
+
+h2.ce-header {
+  font-size: 24px !important;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+
+h3.ce-header {
+  font-size: 22px !important;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+
+h4.ce-header {
+  font-size: 20px !important;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
