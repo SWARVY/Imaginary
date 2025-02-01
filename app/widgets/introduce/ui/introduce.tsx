@@ -2,7 +2,7 @@ import { TiDropbox, TiSocialGithub, TiSpiral } from 'react-icons/ti';
 
 export default function Introduce() {
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-4">
       <div className="space-y-4 divide-y">
         <h3 className="py-2 text-lg font-bold">🔮 Introduce</h3>
         <ul className="space-y-2 text-sm">
@@ -12,14 +12,22 @@ export default function Introduce() {
             <p>SWARVY</p>
           </div>
           <li>React, Next, Typescript Enthusiast</li>
-          <li className="flex items-center gap-x-1">
+          <li className="flex flex-wrap items-center gap-x-1">
             I am keenly passionate about
             <a
               href="https://tanstack.com/start/latest/docs/framework/react/overview"
               target="_blank"
-              className="link link-primary"
+              className="link link-primary font-bold"
             >
               @tanstack/start
+            </a>
+            &
+            <a
+              href="https://tanstack.com/router/latest/docs/framework/react/overview"
+              target="_blank"
+              className="link link-primary font-bold"
+            >
+              @tanstack/router
             </a>
           </li>
         </ul>
@@ -32,13 +40,30 @@ export default function Introduce() {
             <a
               href="https://buttersoft.io/"
               target="_blank"
-              className="link link-primary"
+              className="link link-primary font-bold"
             >
               Buttersoft
             </a>
             Frontend Developer
           </li>
         </ul>
+      </div>
+      <div className="space-y-4 divide-y">
+        <h3 className="py-2 text-lg font-bold">🛠️ ETC</h3>
+        <p className="space-x-1">
+          This site is built with
+          <span className="font-bold"> @tanstack/start</span>
+          <br />
+          If you’re curious about the source code, check out this {''}
+          <a
+            href="https://github.com/SWARVY/Imaginary"
+            target="_blank"
+            className="link link-primary font-bold"
+          >
+            github repository
+          </a>{' '}
+          ✨
+        </p>
       </div>
       <SnsList />
     </div>
