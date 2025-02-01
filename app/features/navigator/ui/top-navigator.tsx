@@ -56,7 +56,7 @@ function SearchButton() {
       </button>
       <Dialog id="search-dialog">
         <h3 className="text-lg font-bold">검색</h3>
-        <p className="py-4">검색 dialog에요</p>
+        <p className="py-4">검색 기능은 추후 개발 예정이에요 🔧</p>
       </Dialog>
     </>
   );

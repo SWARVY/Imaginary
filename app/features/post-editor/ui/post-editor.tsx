@@ -170,9 +170,9 @@ function SaveButtons() {
       <div className="lg:tooltip" data-tip="save">
         <button
           type="submit"
-          className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200"
+          className="btn btn-xl btn-outline btn-primary btn-circle"
         >
-          <IoIosSave className="size-6 fill-black" />
+          <IoIosSave className="size-6" />
         </button>
       </div>
     </div>

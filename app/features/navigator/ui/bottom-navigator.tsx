@@ -62,11 +62,11 @@ function WritePost() {
       <div className="fixed right-4 bottom-4 z-40 md:right-10 md:bottom-10">
         <div className="lg:tooltip" data-tip="new post">
           <button
-            className="btn btn-xl btn-outline btn-circle self-end bg-white transition-colors hover:bg-gray-200"
+            className="btn btn-xl btn-outline btn-primary btn-circle"
             data-tip="new post"
             onClick={() => router.navigate({ to: '/new-post' })}
           >
-            <TiPen className="size-6 fill-black" />
+            <TiPen className="size-6" />
           </button>
         </div>
       </div>

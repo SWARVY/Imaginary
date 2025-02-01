@@ -118,10 +118,10 @@ function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
       <div className="lg:tooltip" data-tip="delete">
         <button
           type="button"
-          className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200"
+          className="btn btn-xl btn-outline btn-primary btn-circle"
           onClick={() => openModal('delete-dialog')}
         >
-          <TiDelete className="size-6 fill-black" />
+          <TiDelete className="size-6" />
         </button>
         <AlertDialog id="delete-dialog" onClick={remove}>
           <h3 className="text-lg font-bold">포스트를 삭제하실건가요?</h3>
@@ -131,10 +131,10 @@ function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
       <div className="lg:tooltip" data-tip="edit">
         <button
           type="button"
-          className="btn btn-xl btn-outline btn-circle bg-white transition-colors hover:bg-gray-200"
+          className="btn btn-xl btn-outline btn-primary btn-circle"
           onClick={edit}
         >
-          <TiEdit className="size-6 fill-black" />
+          <TiEdit className="size-6" />
         </button>
       </div>
     </div>
