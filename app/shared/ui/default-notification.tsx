@@ -19,7 +19,7 @@ export default function DefaultNotification({
           'pt-14 pb-16 md:pt-28 md:pb-32',
         )}
       >
-        <DotLottieReact src="/astronaut.lottie" loop autoplay />
+        <DotLottieReact key={title} src="/astronaut.lottie" loop autoplay />
         <div>
           <h2 className="text-4xl font-bold break-keep">{title}</h2>
           <p className="py-6 break-keep">{message}</p>
