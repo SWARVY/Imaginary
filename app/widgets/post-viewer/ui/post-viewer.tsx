@@ -1,8 +1,5 @@
 import { SignedIn } from '@clerk/tanstack-start';
-import { convexQuery } from '@convex-dev/react-query';
-import { SuspenseQuery } from '@suspensive/react-query';
-import { api } from 'convex/_generated/api';
-import type { Doc, Id } from 'convex/_generated/dataModel';
+import type { Doc } from 'convex/_generated/dataModel';
 import { format } from 'date-fns';
 import { Suspense, lazy, useState } from 'react';
 import { TiDelete, TiEdit } from 'react-icons/ti';
@@ -14,12 +11,11 @@ import { NotFound } from '~/shared/ui/not-found';
 
 import PostComments from './post-comments';
 import PostTOC from './post-toc';
-import PostViewerSkeleton from './post-viewer-skeleton';
 
 const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
 interface PostViewerProps {
-  postId: Id<'post'>;
+  data: Doc<'post'> | null;
 }
 
 interface PostViewerContentsProps {
@@ -31,16 +27,8 @@ interface PostManageButtonsProps {
   remove: () => void;
 }
 
-export default function PostViewer({ postId }: PostViewerProps) {
-  return (
-    <Suspense fallback={<PostViewerSkeleton />}>
-      <SuspenseQuery {...convexQuery(api.posts.getPostDetail, { id: postId })}>
-        {({ data }) =>
-          data ? <PostViewerContents data={data} /> : <NotFound />
-        }
-      </SuspenseQuery>
-    </Suspense>
-  );
+export default function PostViewer({ data }: PostViewerProps) {
+  return data ? <PostViewerContents data={data} /> : <NotFound />;
 }
 
 function PostViewerContents({ data }: PostViewerContentsProps) {

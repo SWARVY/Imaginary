@@ -51,11 +51,16 @@ export const Route = createRootRouteWithContext<{
       ...seo({
         title: 'Imaginary',
         description: `for the Imaginary`,
+        image: '/og-image.webp',
       }),
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'stylesheet', href: editorCss },
+      {
+        rel: 'canonical',
+        href: 'https://forimaginary.dev',
+      },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',

@@ -20,6 +20,7 @@ export const seo = ({
     { name: 'og:type', content: 'website' },
     { name: 'og:title', content: title },
     { name: 'og:description', content: description },
+    { name: 'og:url', content: 'https://forimaginary.dev' },
     ...(image
       ? [
           { name: 'twitter:image', content: image },
