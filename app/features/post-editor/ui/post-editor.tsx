@@ -7,6 +7,7 @@ import {
   FormProvider,
   useForm,
   useFormContext,
+  useFormState,
 } from 'react-hook-form';
 import { IoIosSave } from 'react-icons/io';
 import { TiLinkOutline } from 'react-icons/ti';
@@ -118,7 +119,7 @@ function Title() {
         />
         <div className="shrink-0 filter">
           <input
-            className="btn btn-sm btn-outline filter-reset"
+            className="btn btn-sm btn-soft filter-reset"
             type="radio"
             name="type"
             aria-label="All"
@@ -126,7 +127,7 @@ function Title() {
           {...CATEGORIES.map(({ type, value }) => (
             <input
               key={type}
-              className="btn btn-sm btn-outline"
+              className="btn btn-sm btn-soft"
               type="radio"
               aria-label={value}
               value={type}
@@ -165,14 +166,21 @@ function RelatedPosts() {
 }
 
 function SaveButtons() {
+  const { isSubmitting } = useFormState();
+
   return (
-    <div className="fixed right-4 bottom-10 z-40 md:right-10">
+    <div className="fixed right-4 bottom-4 z-40 md:right-10 md:bottom-10">
       <div className="lg:tooltip" data-tip="save">
         <button
           type="submit"
-          className="btn btn-xl btn-outline btn-primary btn-circle"
+          className="btn btn-xl btn-soft btn-primary btn-circle"
+          disabled={isSubmitting}
         >
-          <IoIosSave className="size-6" />
+          {isSubmitting ? (
+            <span className="loading loading-spinner" />
+          ) : (
+            <IoIosSave className="size-6" />
+          )}
         </button>
       </div>
     </div>
