@@ -5,6 +5,8 @@
     sunset --prefersdark;
 }
 
+@custom-variant dark (&:where([data-theme=sunset], [data-theme=sunset] *));
+
 html {
   scroll-behavior: smooth;
 }
@@ -20,7 +22,7 @@ html {
   font-weight: 45 920;
   font-style: normal;
   font-display: swap;
-  src: url('/public/PretendardVariable.woff2') format('woff2-variations');
+  src: url('/PretendardVariable.woff2') format('woff2-variations');
 }
 
 @theme {

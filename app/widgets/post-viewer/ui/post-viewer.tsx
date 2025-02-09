@@ -106,7 +106,7 @@ function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
       <div className="lg:tooltip" data-tip="delete">
         <button
           type="button"
-          className="btn btn-xl btn-outline btn-primary btn-circle"
+          className="btn btn-xl btn-soft btn-primary btn-circle"
           onClick={() => openModal('delete-dialog')}
         >
           <TiDelete className="size-6" />
@@ -119,7 +119,7 @@ function PostManageButtonsProps({ edit, remove }: PostManageButtonsProps) {
       <div className="lg:tooltip" data-tip="edit">
         <button
           type="button"
-          className="btn btn-xl btn-outline btn-primary btn-circle"
+          className="btn btn-xl btn-soft btn-primary btn-circle"
           onClick={edit}
         >
           <TiEdit className="size-6" />

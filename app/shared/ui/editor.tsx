@@ -1,4 +1,3 @@
-import CodeTool from '@editorjs/code';
 import Delimiter from '@editorjs/delimiter';
 import EditorJS, {
   type OutputData,
@@ -9,6 +8,8 @@ import ImageTool from '@editorjs/image';
 import InlineCode from '@editorjs/inline-code';
 import EditorjsList from '@editorjs/list';
 import Quote from '@editorjs/quote';
+// @ts-expect-error - Ignoring missing type definitions for @editorjs/raw
+import RawTool from '@editorjs/raw';
 import Table from '@editorjs/table';
 import Warning from '@editorjs/warning';
 import { api } from 'convex/_generated/api';
@@ -93,7 +94,7 @@ export default function EditorComponent({
           },
         },
         list: EditorjsList,
-        code: CodeTool,
+        raw: RawTool,
         table: Table,
         quote: Quote,
         delimiter: Delimiter,
@@ -116,5 +117,5 @@ export default function EditorComponent({
     };
   }, []);
 
-  return <div id="editorjs" className={cn(className, 'font-light')} />;
+  return <div id="editorjs" className={cn(className, 'text-sm font-light')} />;
 }

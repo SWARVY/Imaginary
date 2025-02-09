@@ -26,12 +26,12 @@ export default function DefaultError({ message }: DefaultErrorProps) {
           <div className="grid grid-cols-2 gap-x-2">
             <button
               type="button"
-              className="btn btn-outline"
+              className="btn btn-soft"
               onClick={() => window.history.back()}
             >
               이전 화면
             </button>
-            <Link to="/" className="btn btn-outline">
+            <Link to="/" className="btn btn-soft">
               홈으로
             </Link>
           </div>
