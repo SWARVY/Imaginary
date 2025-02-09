@@ -32,7 +32,6 @@ export default function PostTOC() {
           }
           seenIds.add(uniqueId);
 
-          // 동적으로 id 부여
           el.setAttribute('id', uniqueId);
 
           return {
