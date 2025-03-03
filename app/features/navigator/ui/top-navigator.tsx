@@ -1,3 +1,4 @@
+import { ClientOnly, Suspense } from '@suspensive/react';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
@@ -20,7 +21,11 @@ export default function TopNavigator() {
 function UtilityButtons() {
   return (
     <div className="grid grid-cols-2 gap-x-1">
-      <DarkModeButton />
+      <Suspense fallback={<TiWeatherNight className="swap-on size-5" />}>
+        <ClientOnly>
+          <DarkModeButton />
+        </ClientOnly>
+      </Suspense>
       <SearchButton />
     </div>
   );
