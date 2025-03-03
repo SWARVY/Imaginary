@@ -114,7 +114,7 @@ export default function Editor({
   return (
     <BlockNoteView
       id="bn-editor"
-      className={cn(className)}
+      className={cn(className, !editable && '[&_.bn-editor]:!px-0')}
       editor={editor}
       editable={editable}
       theme={theme === 'lofi' ? 'light' : 'dark'}

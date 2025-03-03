@@ -1,6 +1,5 @@
 .bn-editor {
   --bn-colors-editor-background: transparent;
-  padding-inline: 0;
 }
 
 .bn-container[data-font-pretendard] .bn-editor * {

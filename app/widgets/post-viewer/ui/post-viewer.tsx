@@ -60,7 +60,7 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
           }
         >
           <Editor
-            className="w-full"
+            className="w-full px-0"
             initialContent={JSON.parse(data.contents)}
             editable={false}
           />
