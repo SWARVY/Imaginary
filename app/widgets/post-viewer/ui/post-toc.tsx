@@ -6,12 +6,15 @@ export default function PostTOC() {
   >([]);
 
   useEffect(() => {
-    let editor = document.getElementById('editorjs');
+    let editor = document.getElementById('bn-editor');
 
     const updateHeadings = () => {
       if (!editor) return;
 
-      const headingTags = editor.querySelectorAll('h2, h3, h4');
+      // Update selector to match BlockNote's heading structure
+      const headingTags = editor.querySelectorAll(
+        '[data-content-type="heading"]',
+      );
       const seenIds = new Set();
 
       const generatedHeadings = Array.from(headingTags)
@@ -34,10 +37,13 @@ export default function PostTOC() {
 
           el.setAttribute('id', uniqueId);
 
+          // Get heading level from data-level attribute
+          const level = parseInt(el.getAttribute('data-level') || '1', 10);
+
           return {
             id: uniqueId,
             text,
-            level: parseInt(el.tagName.substring(1), 10),
+            level,
           };
         })
         .filter(Boolean) as { id: string; text: string; level: number }[];
@@ -46,13 +52,13 @@ export default function PostTOC() {
     };
 
     const observer = new MutationObserver(() => {
-      editor = document.getElementById('editorjs');
+      editor = document.getElementById('bn-editor');
       updateHeadings();
     });
 
     if (!editor) {
       const bodyObserver = new MutationObserver(() => {
-        editor = document.getElementById('editorjs');
+        editor = document.getElementById('bn-editor');
         if (editor) {
           bodyObserver.disconnect();
           observer.observe(editor, { childList: true, subtree: true });

@@ -8,8 +8,8 @@ import {
   createRootRouteWithContext,
   useRouteContext,
 } from '@tanstack/react-router';
-// import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { Meta, Scripts, createServerFn } from '@tanstack/start';
+import { Meta, Scripts, createServerFn } from '@tanstack/react-start';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import * as React from 'react';
@@ -140,7 +140,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </div>
           <Toaster position="top-right" />
           <BottomNavigator />
-          {/* <TanStackRouterDevtools position="bottom-right" /> */}
+          <TanStackRouterDevtools position="bottom-right" />
           <ReactQueryDevtools buttonPosition="bottom-left" />
           <Scripts />
         </div>

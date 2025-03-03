@@ -23,7 +23,6 @@ export type Post = z.infer<typeof PostSchema>;
 
 export const FileSchema = z.object({
   body: z.string(),
-  format: z.literal('image'),
 });
 
 export default defineSchema({

@@ -17,5 +17,8 @@ export default function useInsertPost() {
         params: { type: 'POST' },
       });
     },
+    onError: () => {
+      toast.error('포스트 등록에 실패했어요 😢');
+    },
   });
 }

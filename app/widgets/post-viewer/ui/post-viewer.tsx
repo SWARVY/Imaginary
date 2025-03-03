@@ -1,18 +1,17 @@
 import { SignedIn } from '@clerk/tanstack-start';
 import type { Doc } from 'convex/_generated/dataModel';
 import { format } from 'date-fns';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { TiDelete, TiEdit } from 'react-icons/ti';
 import { useDeletePost } from '~/entities/post';
 import { PostEditor } from '~/features/post-editor';
 import openModal from '~/shared/lib/open-modal';
 import AlertDialog from '~/shared/ui/alert-dialog';
+import Editor from '~/shared/ui/blocknote';
 import { NotFound } from '~/shared/ui/not-found';
 
 import PostComments from './post-comments';
 import PostTOC from './post-toc';
-
-const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
 interface PostViewerProps {
   data: Doc<'post'> | null;
@@ -60,10 +59,10 @@ function PostViewerContents({ data }: PostViewerContentsProps) {
             </div>
           }
         >
-          <EditorComponent
+          <Editor
             className="w-full"
-            readOnly
-            data={JSON.parse(data.contents)}
+            initialContent={JSON.parse(data.contents)}
+            editable={false}
           />
         </Suspense>
         <div className="w-full space-y-2">

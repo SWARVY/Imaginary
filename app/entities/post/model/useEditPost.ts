@@ -22,5 +22,8 @@ export default function useEditPost() {
         params: { type: 'POST' },
       });
     },
+    onError: () => {
+      toast.error('포스트 수정에 실패했어요 😢');
+    },
   });
 }

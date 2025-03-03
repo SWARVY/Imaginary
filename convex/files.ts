@@ -13,7 +13,6 @@ export const sendImage = zMutation({
   handler: async (ctx, args) => {
     await ctx.db.insert('file', {
       body: args.storageId,
-      format: 'image',
     });
   },
 });
