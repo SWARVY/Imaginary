@@ -5,10 +5,18 @@ import { ConvexHttpClient } from 'convex/browser';
 import { seo } from '~/shared/lib/seo';
 import { PostViewer } from '~/widgets/post-viewer';
 
+interface RouteParams {
+  params: Params;
+}
+
+interface Params {
+  postId: Id<'post'>;
+}
+
 const convexClient = new ConvexHttpClient(import.meta.env.VITE_CONVEX_URL!);
 
 export const Route = createFileRoute('/posts/detail/$postId')({
-  loader: async ({ params }) => {
+  loader: async ({ params }: RouteParams) => {
     const { postId } = params;
     const data = await convexClient.query(api.posts.getPostDetail, {
       id: postId as Id<'post'>,

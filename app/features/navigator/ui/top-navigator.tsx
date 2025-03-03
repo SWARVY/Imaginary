@@ -1,5 +1,6 @@
+import { ClientOnly, Suspense } from '@suspensive/react';
 import { Link } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { TiWeatherNight, TiWeatherSunny } from 'react-icons/ti';
 import { themeChange } from 'theme-change';
@@ -20,17 +21,34 @@ export default function TopNavigator() {
 function UtilityButtons() {
   return (
     <div className="grid grid-cols-2 gap-x-1">
-      <DarkModeButton />
+      <Suspense fallback={<TiWeatherNight className="swap-on size-5" />}>
+        <ClientOnly>
+          <DarkModeButton />
+        </ClientOnly>
+      </Suspense>
       <SearchButton />
     </div>
   );
 }
 
 function DarkModeButton() {
+  const [isDark, setIsDark] = useState(
+    () => localStorage.getItem('theme') === 'sunset',
+  );
+
+  const handleThemeChange = () => {
+    const newTheme = isDark ? 'lofi' : 'sunset';
+    localStorage.setItem('theme', newTheme);
+    setIsDark(!isDark);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
   useEffect(() => {
     if (!localStorage.getItem('theme')) {
       localStorage.setItem('theme', 'lofi');
+      setIsDark(false);
     }
+
     themeChange(false);
   }, []);
 
@@ -41,6 +59,8 @@ function DarkModeButton() {
         className="theme-controller"
         data-toggle-theme="sunset,lofi"
         data-act-class="ACTIVECLASS"
+        checked={isDark}
+        onChange={handleThemeChange}
       />
       <TiWeatherNight className="swap-on size-5" />
       <TiWeatherSunny className="swap-off size-5" />

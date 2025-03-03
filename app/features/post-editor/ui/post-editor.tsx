@@ -1,4 +1,6 @@
+import { PartialBlock } from '@blocknote/core';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ClientOnly } from '@suspensive/react';
 import { Doc } from 'convex/_generated/dataModel';
 import { PostSchema } from 'convex/schema';
 import { Suspense, lazy } from 'react';
@@ -13,11 +15,10 @@ import { IoIosSave } from 'react-icons/io';
 import { TiLinkOutline } from 'react-icons/ti';
 import { toast } from 'sonner';
 import { useEditPost, useInsertPost } from '~/entities/post';
+import Editor from '~/shared/ui/blocknote';
 import { useEditorStore } from '~/store/editor-store';
 
 import { CATEGORIES } from '../model';
-
-const EditorComponent = lazy(() => import('~/shared/ui/editor'));
 
 interface PostEditorProps {
   defaultValue?: Doc<'post'>;
@@ -45,16 +46,14 @@ export default function PostEditor({
   const handleEditorSubmit = async (data: Doc<'post'>) => {
     if (!editor) return;
 
-    const outputData = await editor.save();
+    const outputData = editor.document;
 
-    if (outputData.blocks.length === 0) {
+    if (outputData.length === 0) {
       return toast.error('작성된 글이 없습니다.');
     }
 
     const input = { ...data, contents: JSON.stringify(outputData) };
 
-    // for Debug
-    console.log(input);
     if (type === 'CREATE') {
       createMutateAsync({ input });
     } else {
@@ -78,7 +77,7 @@ export default function PostEditor({
           onSubmit={methods.handleSubmit(handleEditorSubmit, handleSubmitError)}
         >
           <Title />
-          <div className="rounded-md py-4 ring-black focus-within:ring-2 dark:ring-white">
+          <div className="rounded-md ring-black focus-within:ring-2 dark:ring-white">
             <Suspense
               fallback={
                 <div className="flex size-full justify-center">
@@ -86,12 +85,14 @@ export default function PostEditor({
                 </div>
               }
             >
-              <EditorComponent
-                className="w-full"
-                data={
-                  defaultValue ? JSON.parse(defaultValue.contents) : undefined
-                }
-              />
+              <ClientOnly>
+                <Editor
+                  className="py-4"
+                  {...(defaultValue && {
+                    initialContent: JSON.parse(defaultValue.contents),
+                  })}
+                />
+              </ClientOnly>
             </Suspense>
           </div>
           <RelatedPosts />

@@ -4,12 +4,14 @@ import { ConvexQueryClient } from '@convex-dev/react-query';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
+  HeadContent,
   Outlet,
+  Scripts,
   createRootRouteWithContext,
   useRouteContext,
 } from '@tanstack/react-router';
-// import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { Meta, Scripts, createServerFn } from '@tanstack/start';
+import { createServerFn } from '@tanstack/react-start';
+import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import * as React from 'react';
@@ -125,7 +127,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head>
-        <Meta />
+        <HeadContent />
       </head>
       <body>
         <div
@@ -140,7 +142,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           </div>
           <Toaster position="top-right" />
           <BottomNavigator />
-          {/* <TanStackRouterDevtools position="bottom-right" /> */}
+          <TanStackRouterDevtools position="bottom-right" />
           <ReactQueryDevtools buttonPosition="bottom-left" />
           <Scripts />
         </div>
